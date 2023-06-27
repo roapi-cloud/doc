@@ -3,19 +3,36 @@
 ## 注册账号
 请发送邮件到yuping322@gmail.com，申请试用
 
+```bash
+curl -X 'POST' \
+  'http://roapi-cloud.com/api/default/users' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "email": "test@roapi-cloud.com",
+  "first_name": "test",
+  "last_name": "test",
+  "password": "test123",
+  "role" : "admin"
+}'
+```
 ## 下载测试数据
 ```bash
 curl -L https://zinc-public-data.s3.us-west-2.amazonaws.com/zinc-enl/sample-k8s-logs/k8slog_json.json.zip -o k8slog_json.json.zip
 unzip k8slog_json.json.zip
 ```
 ## 上传数据到云存储中
+用以上创建的test@roapi-cloud.com和密码test123
 ```bash
-curl http://localhost:5080/api/default/default/_json -i -u "<帐号名：密码>"  -d "@k8slog_json.json"
+curl http://roapi-cloud.com/api/default/default/_json -i -u "test@roapi-cloud.com:test123"  -d "@k8slog_json.json"
 ```
-
+看到数据提交成功
+```bash
+{"code":200,"status":[{"name":"default","successful":3846,"failed":0}]}
+```
 ## 云接口查询
 ```bash
-curl -u "<帐号名：密码>" -X 'POST' \
+curl -u "test@roapi-cloud.com:test123" -X 'POST' \
   'http://roapi-cloud.com/api/default/_search' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
@@ -43,10 +60,11 @@ wget https://github.com/roapi-cloud/roapi-cloud/releases/download/v0.01/roapi_li
 
 ## 查询meta获取该组织下有权限的数据
 ```bash
-curl -X 'GET' \
+curl -u "test@roapi-cloud.com:test123" -X 'GET' \
   'http://roapi-cloud.com/api/default/streams' \
   -H 'accept: application/json'
 ```
+
 ## 本地启动roapi程序
 ```bash
 ./roapi  --table "test=s3://testfegz/files/default/logs/default/,format=parquet"
