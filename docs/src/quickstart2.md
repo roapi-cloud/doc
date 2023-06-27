@@ -3,6 +3,7 @@
 ## 注册账号
 请发送邮件到yuping322@gmail.com，申请试用
 
+创建一个用户。并把用户加到default组织下
 ```bash
 curl -X 'POST' \
   'http://roapi-cloud.com/api/default/users' \
