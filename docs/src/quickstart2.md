@@ -15,6 +15,19 @@ curl -X 'POST' \
   "password": "test123",
   "role" : "admin"
 }'
+
+
+```
+创建一个组织test，并且该用户加到该组织下，角色为admin
+```bash
+curl -X 'POST' \
+  'http://roapi-cloud.com/api/test/users/test%40roapi-cloud.com' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "role": "admin"
+}'
+
 ```
 ## 下载测试数据
 ```bash
